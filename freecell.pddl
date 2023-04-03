@@ -1,4 +1,58 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (domain freecell)
+  (:requirements :strips :typing)
+  (:types
+    card num suit
+  )
+  (:predicates
+    (value ?card - card ?value - num)
+    (suit ?card - card ?st - suit)
+    (successor ?n1 - num ?n2 - num)
+    (canstack ?card1 - card ?card2 - card)
+    (on ?card1 - card ?card2 - card)
+    (incell ?card - card)
+    (clear ?card - card)
+    (cellspace ?n - num)
+    (colspace ?n - num)
+    (home ?card - card)
+    (bottomcol ?card - card)
+    ;;(at-person ?p - person ?f - floor)
+  )
+
+  ;; Move a card from a column with at least 2 cards to another one with at least one card
+  (:action MoveFromColumnToColumn
+    :parameters (?cardToBeMoved - card ?cardBelow - card ?targetCard - card)
+    :precondition (and
+      (clear ?cardToBeMoved)
+      (clear ?targetCard)
+      (canstack ?targetCard ?cardToBeMoved)
+      (on ?cardToBeMoved ?cardBelow)
+    )
+    :effect (and
+        (clear ?cardBelow)
+        (on ?cardToBeMoved ?targetCard)
+        (not (clear ?targetCard))
+        (not (on ?cardToBeMoved ?cardBelow))
+    )
+  )
+
+  ;;Move a card from a column with at least 2 cards to another column that is empty
+  (:action MoveFromColumnToEmptyColumn
+    :parameters (?cardToBeMoved - card ?cardBelow - card ?numOfFreeColumn - num ?predecessor - num)
+    :precondition (and
+      (clear ?cardToBeMoved)
+      (on ?cardToBeMoved ?cardBelow)
+      (colspace ?numOfFreeColumn)
+      (successor ?numOfFreeColumn ?predecessor)
+    )
+    :effect (and
+        (clear ?cardBelow)
+        (bottomcol ?cardToBeMoved)
+        (colspace ?predecessor)
+        (not (colspace ?numOfFreeColumn))
+        (not (on ?cardToBeMoved ?cardBelow))
+    )
+  )
+)
 ;;; FreeCellWorld
 ;;; Free cell game playing domain
 ;;;
