@@ -2,17 +2,17 @@
 
 ## Actions
 ### Card movements
- * Move a card from a column with at least 2 cards to another one with at least one card
- * Move a card from a column with at least 2 cards to another column that is empty
- * Move the last card from a column to another column with at least one card
+ * Move a card from a column with at least 2 cards to another one with at least one card    --DONE
+ * Move a card from a column with at least 2 cards to another column that is empty          --DONE
+ * Move the last card from a column to another column with at least one card                --DONE
  * Move a card from column with length one to an empty colum **(useless?)**
  
  ### From column to home
- * Send a card home from a column with at least 2 cards
- * Send a card home from a column with one card
+ * Send a card home from a column with at least 2 cards                                     --DONE
+ * Send a card home from a column with one card                                             --DONE
  
  ### Column to freecell
- * Move a card from a column with at least 2 cards to a freecell
+ * Move a card from a column with at least 2 cards to a freecell                            --DOING
  * Move a card from a column with 1 card to a freecell
  
  ### Freecell to something

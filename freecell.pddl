@@ -24,7 +24,7 @@
     :precondition (and
       (clear ?cardToBeMoved)
       (clear ?targetCard)
-      (canstack ?targetCard ?cardToBeMoved)
+      (canstack ?cardToBeMoved ?targetCard)
       (on ?cardToBeMoved ?cardBelow)
     )
     :effect (and
@@ -52,6 +52,69 @@
         (not (on ?cardToBeMoved ?cardBelow))
     )
   )
+  (:action MoveLastCardToColumn
+      :parameters (?cardToBeMoved - card ?targetCard - card ?numOfFreeColumn - num ?succ - num)
+      :precondition (and 
+        (clear ?cardToBeMoved)
+        (clear ?targetCard)
+        (canstack ?cardToBeMoved ?targetCard)
+        (bottomcol ?cardToBeMoved)
+        (successor ?succ ?numOfFreeColumn)
+      )
+      :effect (and 
+        (colspace ?succ)
+        (not(colspace ?numOfFreeColumn))
+        (on ?cardToBeMoved ?targetCard)
+        (not (clear ?targetCard))
+        (not (bottomCol ?cardToBeMoved))
+      )
+  )
+  (:action SendACardToHomeFromColumn
+      :parameters (?cardToBeMoved - card ?targetCard - card ?cardBelow - card ?cardToMoveValue - num ?targetValue - num ?cardSuit - suit)
+      :precondition (and 
+        (clear ?cardToBeMoved)
+        (on ?cardToBeMoved ?cardBelow)
+        (suit ?cardToBeMoved ?cardSuit)
+        (suit ?targetCard ?cardSuit)
+        (home ?targetCard)
+        (value ?targetCard ?targetValue)
+        (value ?cardToBeMoved ?cardToMoveValue)
+        (successor ?cardToMoveValue ?targetValue)
+      )
+      :effect (and 
+        (home ?cardToBeMoved)
+        (clear ?cardBelow)
+        (not (home ?targetCard))
+        (not (clear ?targetCard))
+        (not (on ?cardToBeMoved ?cardBelow))
+        (not (clear ?cardToBeMoved))
+      )
+  )
+  (:action SendACardToHomeFromColumnWithOneCard
+      :parameters (?cardToBeMoved - card ?targetCard - card ?cardToMoveValue - num ?targetValue - num ?cardSuit - suit ?numOfFreeColumn - num ?succ - num)
+      :precondition (and 
+        (bottomcol ?cardToBeMoved)
+        (colspace ?numOfFreeColumn)
+        (successor ?succ ?numOfFreeColumn)
+        (clear ?cardToBeMoved)
+        (suit ?cardToBeMoved ?cardSuit)
+        (suit ?targetCard ?cardSuit)
+        (home ?targetCard)
+        (value ?targetCard ?targetValue)
+        (value ?cardToBeMoved ?cardToMoveValue)
+        (successor ?cardToMoveValue ?targetValue)
+      )
+      :effect (and 
+        (home ?cardToBeMoved)
+        (not (home ?targetCard))
+        (not (clear ?targetCard))
+        (not (clear ?cardToBeMoved))
+        (not (bottomcol ?cardToBeMoved))
+        (colspace ?succ)
+        (not(colspace ?numOfFreeColumn))
+      )
+  )
+  
 )
 ;;; FreeCellWorld
 ;;; Free cell game playing domain
