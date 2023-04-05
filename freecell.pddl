@@ -114,7 +114,6 @@
         (not(colspace ?numOfFreeColumn))
       )
   )
-<<<<<<< HEAD
 
 
 ;;; CHECK IF IT IS OK 
@@ -131,6 +130,7 @@
         (incell ?cardToBeMoved)
         (clear ?cardBelow)
         (cellspace ?predecessor)
+        (not (clear ?cardToBeMoved))
         (not (on ?cardToBeMoved ?cardBelow))
         (not (cellspace ?numOfFreeCells))
       )
@@ -150,13 +150,12 @@
       :effect (and 
         (incell ?cardToBeMoved)
         (cellspace ?predecessor)
+        (not (clear ?cardToBeMoved))
         (not (cellspace ?numOfFreeCells))
         (not (bottomcol ?cardToBeMoved))
       )
 
   )
-=======
->>>>>>> parent of 3d93c60 (move to free cell added)
   
 )
 ;;; FreeCellWorld
