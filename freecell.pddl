@@ -114,6 +114,7 @@
         (not(colspace ?numOfFreeColumn))
       )
   )
+<<<<<<< HEAD
 
 
 ;;; CHECK IF IT IS OK 
@@ -154,6 +155,8 @@
       )
 
   )
+=======
+>>>>>>> parent of 3d93c60 (move to free cell added)
   
 )
 ;;; FreeCellWorld
