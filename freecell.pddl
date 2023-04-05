@@ -114,6 +114,46 @@
         (not(colspace ?numOfFreeColumn))
       )
   )
+
+
+;;; CHECK IF IT IS OK 
+  (:action SendACardToFreeCellFromColumn
+      :parameters (?cardToBeMoved - card ?cardBelow - card ?numOfFreeCells - num ?predecessor - num)
+      :precondition (and 
+        (clear ?cardToBeMoved)
+        (on ?cardToBeMoved ?cardBelow)
+        (cellspace ?numOfFreeColumn)
+        (successor ?numOfFreeColumn ?predecessor)
+      
+      )
+      :effect (and 
+        (incell ?cardToBeMoved)
+        (clear ?cardBelow)
+        (cellspace ?predecessor)
+        (not (on ?cardToBeMoved ?cardBelow))
+        (not (cellspace ?numOfFreeCells))
+      )
+  )
+
+
+;;; CHECK IF IT IS OK 
+  (:action SendACardToFreeCellFromColumnWithOneCard
+      :parameters (?cardToBeMoved - card ?numOfFreeCells - num ?predecessor - num)
+      :precondition (and 
+        (bottomcol ?cardToBeMoved)
+        (clear ?cardToBeMoved)
+        (cellspace ?numOfFreeColumn)
+        (successor ?numOfFreeColumn ?predecessor)
+      
+      )
+      :effect (and 
+        (incell ?cardToBeMoved)
+        (cellspace ?predecessor)
+        (not (cellspace ?numOfFreeCells))
+        (not (bottomcol ?cardToBeMoved))
+      )
+
+  )
   
 )
 ;;; FreeCellWorld
