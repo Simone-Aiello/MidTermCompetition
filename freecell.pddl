@@ -122,8 +122,8 @@
       :precondition (and 
         (clear ?cardToBeMoved)
         (on ?cardToBeMoved ?cardBelow)
-        (cellspace ?numOfFreeColumn)
-        (successor ?numOfFreeColumn ?predecessor)
+        (cellspace ?numOfFreeCells)
+        (successor ?numOfFreeCells ?predecessor)
       
       )
       :effect (and 
@@ -142,8 +142,8 @@
       :precondition (and 
         (bottomcol ?cardToBeMoved)
         (clear ?cardToBeMoved)
-        (cellspace ?numOfFreeColumn)
-        (successor ?numOfFreeColumn ?predecessor)
+        (cellspace ?numOfFreeCells)
+        (successor ?numOfFreeCells ?predecessor)
       
       )
       :effect (and 
