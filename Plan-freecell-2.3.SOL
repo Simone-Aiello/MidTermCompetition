@@ -1,0 +1,8 @@
+(sendacardtohomefromcolumn ha h0 ca n1 n0 h)
+(sendacardtohomefromcolumnwithonecard h2 ha n2 n1 h n3 n4)
+(sendacardtohomefromcolumnwithonecard ca c0 n1 n0 c n4 n5)
+(sendacardtohomefromcolumn c2 ca sa n2 n1 c)
+(sendacardtohomefromcolumn sa s0 d2 n1 n0 s)
+(sendacardtohomefromcolumnwithonecard s2 sa n2 n1 s n5 n6)
+(sendacardtohomefromcolumnwithonecard da d0 n1 n0 d n6 n7)
+(sendacardtohomefromcolumnwithonecard d2 da n2 n1 d n7 n8)
