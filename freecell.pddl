@@ -15,7 +15,6 @@
     (colspace ?n - num)
     (home ?card - card)
     (bottomcol ?card - card)
-    ;;(at-person ?p - person ?f - floor)
   )
 
   ;; Move a card from a column with at least 2 cards to another one with at least one card
@@ -51,23 +50,6 @@
         (not (colspace ?numOfFreeColumn))
         (not (on ?cardToBeMoved ?cardBelow))
     )
-  )
-  (:action MoveLastCardToColumn
-      :parameters (?cardToBeMoved - card ?targetCard - card ?numOfFreeColumn - num ?succ - num)
-      :precondition (and 
-        (clear ?cardToBeMoved)
-        (clear ?targetCard)
-        (canstack ?cardToBeMoved ?targetCard)
-        (bottomcol ?cardToBeMoved)
-        (successor ?succ ?numOfFreeColumn)
-      )
-      :effect (and 
-        (colspace ?succ)
-        (not(colspace ?numOfFreeColumn))
-        (on ?cardToBeMoved ?targetCard)
-        (not (clear ?targetCard))
-        (not (bottomCol ?cardToBeMoved))
-      )
   )
   (:action SendACardToHomeFromColumn
       :parameters (?cardToBeMoved - card ?targetCard - card ?cardBelow - card ?cardToMoveValue - num ?targetValue - num ?cardSuit - suit)
@@ -114,9 +96,6 @@
         (not(colspace ?numOfFreeColumn))
       )
   )
-
-
-;;; CHECK IF IT IS OK 
   (:action SendACardToFreeCellFromColumn
       :parameters (?cardToBeMoved - card ?cardBelow - card ?numOfFreeCells - num ?predecessor - num)
       :precondition (and 
@@ -135,28 +114,69 @@
         (not (cellspace ?numOfFreeCells))
       )
   )
-
-
-;;; CHECK IF IT IS OK 
   (:action SendACardToFreeCellFromColumnWithOneCard
-      :parameters (?cardToBeMoved - card ?numOfFreeCells - num ?predecessor - num)
+      :parameters (?cardToBeMoved - card ?numOfFreeCells - num ?predecessorFreeCell - num ?numOfFreeColumn - num ?columnSucc - num)
       :precondition (and 
         (bottomcol ?cardToBeMoved)
         (clear ?cardToBeMoved)
         (cellspace ?numOfFreeCells)
-        (successor ?numOfFreeCells ?predecessor)
+        (colspace ?numOfFreeColumn)
+        (successor ?numOfFreeCells ?predecessorFreeCell)
+        (successor ?columnSucc ?numOfFreeColumn)
       
       )
       :effect (and 
         (incell ?cardToBeMoved)
-        (cellspace ?predecessor)
+        (cellspace ?predecessorFreeCell)
+        (colspace ?columnSucc)
+        (not (colspace ?numOfFreeColumn))
         (not (clear ?cardToBeMoved))
         (not (cellspace ?numOfFreeCells))
         (not (bottomcol ?cardToBeMoved))
       )
-
   )
-  
+
+  ;; Move a card from a freecell to home
+  (:action SendFromFreecellToHome
+      :parameters (?cardToBeMoved - card ?targetCard - card ?cardToMoveValue - num ?targetValue - num ?cardSuit - suit ?numOfFreeCells - num ?succ - num)
+      :precondition (and
+      (incell ?cardToBeMoved)
+      (home ?targetCard)
+      (suit ?cardToBeMoved ?cardSuit)
+      (suit ?targetCard ?cardSuit)
+      (cellspace ?numOfFreeCells)
+      (successor ?succ ?numOfFreeCells)
+      (value ?targetCard ?targetValue)
+      (value ?cardToBeMoved ?cardToMoveValue)
+      (successor ?cardToMoveValue ?targetValue)      
+      )
+      :effect (and 
+        (home ?cardToBeMoved)
+        (cellspace ?succ)
+        (not (incell ?cardToBeMoved))
+        (not (home ?targetCard))
+        (not(cellspace ?numOfFreeCells))
+      )
+  )
+  ;; Move a card from a freecell to a column with at least 1 cards
+  (:action SendACardFToColumnWithOneCardFromFreecell
+      :parameters (?cardToBeMoved - card ?targetCard - card ?numOfFreeCells - num ?succ - num)
+      :precondition (and 
+        (incell ?cardToBeMoved)
+        (clear ?targetCard)
+        (cellspace ?numOfFreeCells)
+        (canstack ?cardToBeMoved ?targetCard)
+        (successor ?succ ?numOfFreeCells)
+      )
+      :effect (and 
+        (on ?cardToBeMoved ?targetCard)
+        (cellspace ?succ)
+        (clear ?cardToBeMoved)
+        (not (cellspace ?numOfFreeCells))
+        (not (incell ?cardToBeMoved))
+        (not (clear ?targetCard))
+      )
+  )
 )
 ;;; FreeCellWorld
 ;;; Free cell game playing domain
