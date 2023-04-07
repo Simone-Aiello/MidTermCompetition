@@ -40,3 +40,23 @@
       (not (bottomcol ?cardToBeMoved))
     )
 )
+
+  (:action FancyMove
+      :parameters (?cardBelow - card ?cardToBeMoved - card ?cardOnTop - card ?targetCard - card ?numOfFreeCells - num ?predecessor - num)
+      :precondition (and 
+        (on ?cardToBeMoved ?cardBelow)
+        (on ?cardOnTop ?cardToBeMoved)
+        (canstack ?cardOnTop ?cardToBeMoved)
+        (canstack ?cardToBeMoved ?targetCard)
+        (clear ?targetCard)
+        (clear ?cardOnTop)
+        (cellspace ?numOfFreeCells)
+        (successor ?numOfFreeCells ?predecessor)
+      )
+      :effect (and 
+        (on ?cardToBeMoved ?targetCard)
+        (clear ?cardBelow)
+        (not (on ?cardToBeMoved ?cardBelow))
+        (not (clear ?targetCard))
+      )
+  )
