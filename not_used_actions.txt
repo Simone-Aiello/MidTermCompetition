@@ -1,0 +1,42 @@
+
+ (:action MoveLastCardToColumn
+    :parameters (?cardToBeMoved - card ?targetCard - card ?numOfFreeColumn - num ?succ - num)
+    :precondition (and 
+        (clear ?cardToBeMoved)
+        (clear ?targetCard)
+        (canstack ?cardToBeMoved ?targetCard)
+        (bottomcol ?cardToBeMoved)
+        (successor ?succ ?numOfFreeColumn)
+    )
+    :effect (and 
+        (colspace ?succ)
+        (not(colspace ?numOfFreeColumn))
+        (on ?cardToBeMoved ?targetCard)
+        (not (clear ?targetCard))
+        (not (bottomCol ?cardToBeMoved))
+    )
+)
+
+(:action SendACardToFreeCellFromColumnWithOneCard
+    :parameters (?cardToBeMoved - card ?numOfFreeCells - num ?predecessorFreeCell - num 
+     ?numOfFreeColumn - num ?columnSucc - num)
+    
+    :precondition (and 
+      (bottomcol ?cardToBeMoved)
+      (clear ?cardToBeMoved)
+      (cellspace ?numOfFreeCells)
+      (colspace ?numOfFreeColumn)
+      (successor ?numOfFreeCells ?predecessorFreeCell)
+      (successor ?columnSucc ?numOfFreeColumn)
+    
+    )
+    :effect (and 
+      (incell ?cardToBeMoved)
+      (cellspace ?predecessorFreeCell)
+      (colspace ?columnSucc)
+      (not (colspace ?numOfFreeColumn))
+      (not (clear ?cardToBeMoved))
+      (not (cellspace ?numOfFreeCells))
+      (not (bottomcol ?cardToBeMoved))
+    )
+)
