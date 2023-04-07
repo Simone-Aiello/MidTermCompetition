@@ -114,41 +114,19 @@
         (not (cellspace ?numOfFreeCells))
       )
   )
-  (:action SendACardToFreeCellFromColumnWithOneCard
-      :parameters (?cardToBeMoved - card ?numOfFreeCells - num ?predecessorFreeCell - num ?numOfFreeColumn - num ?columnSucc - num)
-      :precondition (and 
-        (bottomcol ?cardToBeMoved)
-        (clear ?cardToBeMoved)
-        (cellspace ?numOfFreeCells)
-        (colspace ?numOfFreeColumn)
-        (successor ?numOfFreeCells ?predecessorFreeCell)
-        (successor ?columnSucc ?numOfFreeColumn)
-      
-      )
-      :effect (and 
-        (incell ?cardToBeMoved)
-        (cellspace ?predecessorFreeCell)
-        (colspace ?columnSucc)
-        (not (colspace ?numOfFreeColumn))
-        (not (clear ?cardToBeMoved))
-        (not (cellspace ?numOfFreeCells))
-        (not (bottomcol ?cardToBeMoved))
-      )
-  )
-
   ;; Move a card from a freecell to home
   (:action SendFromFreecellToHome
       :parameters (?cardToBeMoved - card ?targetCard - card ?cardToMoveValue - num ?targetValue - num ?cardSuit - suit ?numOfFreeCells - num ?succ - num)
       :precondition (and
-      (incell ?cardToBeMoved)
-      (home ?targetCard)
-      (suit ?cardToBeMoved ?cardSuit)
-      (suit ?targetCard ?cardSuit)
-      (cellspace ?numOfFreeCells)
-      (successor ?succ ?numOfFreeCells)
-      (value ?targetCard ?targetValue)
-      (value ?cardToBeMoved ?cardToMoveValue)
-      (successor ?cardToMoveValue ?targetValue)      
+        (incell ?cardToBeMoved)
+        (home ?targetCard)
+        (suit ?cardToBeMoved ?cardSuit)
+        (suit ?targetCard ?cardSuit)
+        (cellspace ?numOfFreeCells)
+        (successor ?succ ?numOfFreeCells)
+        (value ?targetCard ?targetValue)
+        (value ?cardToBeMoved ?cardToMoveValue)
+        (successor ?cardToMoveValue ?targetValue)      
       )
       :effect (and 
         (home ?cardToBeMoved)
@@ -159,7 +137,7 @@
       )
   )
   ;; Move a card from a freecell to a column with at least 1 cards
-  (:action SendACardFToColumnWithOneCardFromFreecell
+  (:action SendToColumnFromFreecell
       :parameters (?cardToBeMoved - card ?targetCard - card ?numOfFreeCells - num ?succ - num)
       :precondition (and 
         (incell ?cardToBeMoved)
