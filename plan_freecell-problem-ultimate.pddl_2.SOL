@@ -1,13 +1,13 @@
 
 ; Version LPG-td-1.4
-; Seed 84275912
+; Seed 93423833
 ; Command line: ../LPG-td-1.4/lpg-td -o freecell_fast.pddl -f freecell-problem-ultimate.pddl -n 1 -onlybestfirst 
 ; Problem freecell-problem-ultimate.pddl
 ; Actions having STRIPS duration
-; Time 2.20
-; Search time 2.05
+; Time 1.59
+; Search time 1.46
 ; Parsing time 0.05
-; Mutex time 0.10
+; Mutex time 0.08
 ; NrActions 123
 
 0:   (SENDACARDTOFREECELLFROMCOLUMN D13 H11 N4 N3) [1]
